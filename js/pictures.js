@@ -27,6 +27,11 @@ var keycode = {
   Enter: 13
 };
 
+var hashtag = {
+  maxAmount: 5,
+  maxLength: 20
+}
+
 var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 var listPictureEl = document.querySelector('.pictures');
 
@@ -38,6 +43,8 @@ var imgUploadOverlay = document.querySelector('.img-upload__overlay');
 var imgUploadCancel = imgUploadOverlay.querySelector('.img-upload__cancel');
 var imgUploadPreview = imgUploadOverlay.querySelector('.img-upload__preview img');
 var imgUploadEffects = imgUploadOverlay.querySelector('.img-upload__effects');
+
+var textHashtags = document.querySelector('.text__hashtags');
 
 function getUrl(i) {
   return ('photos/' + (i + 1) + '.jpg');
@@ -143,7 +150,7 @@ var openUploadImg = function () {
 };
 
 var escapeUploadImgPress = function (evt) {
-  if (evt.keyCode === keycode.Esc) {
+  if ((evt.keyCode === keycode.Esc) && (textHashtags !== document.activeElement)) {
     closeUploadImg();
   }
 };
@@ -176,3 +183,31 @@ imgUploadEffects.addEventListener('change', function () {
 
 bigPicture.querySelector('.social__comment-count').classList.add('visually-hidden');
 bigPicture.querySelector('.comments-loader').classList.add('visually-hidden');
+
+function validateHashtagsForm () {
+  var hashtagItem = textHashtags.value.trim();
+  var hashtagList = hashtagItem.toLowerCase().split(' ');
+  var hashtagErrorMessage = '';
+
+  if (hashtagList.length > hashtag.maxAmount) {
+    hashtagErrorMessage = 'Не более 5 хэштегов';
+  } else {
+    for (var i = 0; i < hashtag.maxLength; i ++) {
+      if (hashtagList[i].charAt(0) !== '#') {
+        hashtagErrorMessage = 'Начните хэштег с #';
+      } else if (hashtagList[i].indexOf('#', 1) > 0) {
+        hashtagErrorMessage = 'Разделите хештеги пробелом';
+      } else if (hashtagList[i].length > hashtag.maxAmount) {
+        hashtagErrorMessage = 'Хэштег не более 20 символов';
+      } else if (hashtagList.indexOf(hashtagList[i]) !== hashtagList.lastIndexOf(hashtagList[i])) {
+        hashtagErrorMessage = 'Не повторяйте хэштеги'
+      }
+      if (hashtagErrorMessage) {
+        break;
+      }
+    }
+  }
+  textHashtags.setCustomValidity(hashtagErrorMessage);
+};
+
+textHashtags.addEventListener('change', validateHashtagsForm);
