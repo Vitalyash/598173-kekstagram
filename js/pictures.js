@@ -206,6 +206,6 @@ function validateHashtagsForm() {
     }
   }
   textHashtags.setCustomValidity(hashtagErrorMessage);
-};
+}
 
 textHashtags.addEventListener('change', validateHashtagsForm);
