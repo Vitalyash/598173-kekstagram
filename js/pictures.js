@@ -195,8 +195,6 @@ function validateHashtagsForm() {
     for (var i = 0; i < hashtag.maxLength; i++) {
       if (hashtagList[i].charAt(0) !== '#') {
         hashtagErrorMessage = 'Начните хэштег с #';
-      } else if (hashtagList[i].indexOf('#', 1) > 0) {
-        hashtagErrorMessage = 'Разделите хештеги пробелом';
       } else if (hashtagList[i].length > hashtag.maxAmount) {
         hashtagErrorMessage = 'Хэштег не более 20 символов';
       } else if (hashtagList.indexOf(hashtagList[i]) !== hashtagList.lastIndexOf(hashtagList[i])) {
@@ -208,6 +206,6 @@ function validateHashtagsForm() {
     }
   }
   textHashtags.setCustomValidity(hashtagErrorMessage);
-}
+};
 
 textHashtags.addEventListener('change', validateHashtagsForm);
