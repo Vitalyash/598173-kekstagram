@@ -184,28 +184,46 @@ imgUploadEffects.addEventListener('change', function () {
 bigPicture.querySelector('.social__comment-count').classList.add('visually-hidden');
 bigPicture.querySelector('.comments-loader').classList.add('visually-hidden');
 
+textHashtags.addEventListener('keyup', validateHashtagsForm);
+
 function validateHashtagsForm() {
-  var hashtagItem = textHashtags.value.trim();
+  var hashtagItem = textHashtags.value.replace(/\s+/g, ' ').trim();
   var hashtagList = hashtagItem.toLowerCase().split(' ');
   var hashtagErrorMessage = '';
+  hashtagErrorMessage = '';
 
   if (hashtagList.length > hashtag.maxAmount) {
     hashtagErrorMessage = 'Не более 5 хэштегов';
   } else {
-    for (var i = 0; i < hashtag.maxLength; i++) {
-      if (hashtagList[i].charAt(0) !== '#') {
+    for (var i = 0; i < hashtagList.length; i++) {
+      var hashtagElement = hashtagList[i];
+      if (hashtagElement.indexOf('#') !== 0) {
         hashtagErrorMessage = 'Начните хэштег с #';
-      } else if (hashtagList[i].length > hashtag.maxAmount) {
+      } else if (hashtagElement.length === 1) {
+        hashtagErrorMessage = 'Хэштег не может состоять из одного символа #';
+      } else if (hashtagElement.length > hashtag.maxLength) {
         hashtagErrorMessage = 'Хэштег не более 20 символов';
-      } else if (hashtagList.indexOf(hashtagList[i]) !== hashtagList.lastIndexOf(hashtagList[i])) {
+      } else if (unique(hashtagList).length < hashtagList.length) {
         hashtagErrorMessage = 'Не повторяйте хэштеги';
       }
+
       if (hashtagErrorMessage) {
         break;
       }
     }
   }
-  textHashtags.setCustomValidity(hashtagErrorMessage);
+  if (hashtagErrorMessage) {
+    textHashtags.setCustomValidity(hashtagErrorMessage);
+  }
 }
 
-textHashtags.addEventListener('change', validateHashtagsForm);
+function unique(arr) {
+  var obj = {};
+
+  for (var i = 0; i < arr.length; i++) {
+    var str = arr[i];
+    obj[str] = true;
+  }
+
+  return Object.keys(obj);
+}
