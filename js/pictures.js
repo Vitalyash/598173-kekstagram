@@ -201,7 +201,7 @@ function validateHashtagsForm() {
         hashtagErrorMessage = 'Начните хэштег с #';
       } else if (hashtagElement.length === 1) {
         hashtagErrorMessage = 'Хэштег не может состоять из одного символа #';
-      } else if (hashtagElement.length > hashtag.maxLength) {
+      } else if (hashtagElement.length >= hashtag.maxLength) {
         hashtagErrorMessage = 'Хэштег не более 20 символов';
       } else if (unique(hashtagList).length < hashtagList.length) {
         hashtagErrorMessage = 'Не повторяйте хэштеги';
@@ -212,9 +212,7 @@ function validateHashtagsForm() {
       }
     }
   }
-  if (hashtagErrorMessage) {
-    textHashtags.setCustomValidity(hashtagErrorMessage);
-  }
+  textHashtags.setCustomValidity(hashtagErrorMessage);
 }
 
 function unique(arr) {
@@ -227,3 +225,4 @@ function unique(arr) {
 
   return Object.keys(obj);
 }
+
