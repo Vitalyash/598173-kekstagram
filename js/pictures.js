@@ -27,6 +27,11 @@ var keycode = {
   Enter: 13
 };
 
+var hashtag = {
+  maxAmount: 5,
+  maxLength: 20
+};
+
 var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 var listPictureEl = document.querySelector('.pictures');
 
@@ -38,6 +43,8 @@ var imgUploadOverlay = document.querySelector('.img-upload__overlay');
 var imgUploadCancel = imgUploadOverlay.querySelector('.img-upload__cancel');
 var imgUploadPreview = imgUploadOverlay.querySelector('.img-upload__preview img');
 var imgUploadEffects = imgUploadOverlay.querySelector('.img-upload__effects');
+
+var textHashtags = document.querySelector('.text__hashtags');
 
 function getUrl(i) {
   return ('photos/' + (i + 1) + '.jpg');
@@ -143,7 +150,7 @@ var openUploadImg = function () {
 };
 
 var escapeUploadImgPress = function (evt) {
-  if (evt.keyCode === keycode.Esc) {
+  if ((evt.keyCode === keycode.Esc) && (textHashtags !== document.activeElement)) {
     closeUploadImg();
   }
 };
@@ -176,3 +183,46 @@ imgUploadEffects.addEventListener('change', function () {
 
 bigPicture.querySelector('.social__comment-count').classList.add('visually-hidden');
 bigPicture.querySelector('.comments-loader').classList.add('visually-hidden');
+
+textHashtags.addEventListener('keyup', validateHashtagsForm);
+
+function validateHashtagsForm() {
+  var hashtagItem = textHashtags.value.replace(/\s+/g, ' ').trim();
+  var hashtagList = hashtagItem.toLowerCase().split(' ');
+  var hashtagErrorMessage = '';
+  hashtagErrorMessage = '';
+
+  if (hashtagList.length > hashtag.maxAmount) {
+    hashtagErrorMessage = 'Не более 5 хэштегов';
+  } else {
+    for (var i = 0; i < hashtagList.length; i++) {
+      var hashtagElement = hashtagList[i];
+      if (hashtagElement.indexOf('#') !== 0) {
+        hashtagErrorMessage = 'Начните хэштег с #';
+      } else if (hashtagElement.length === 1) {
+        hashtagErrorMessage = 'Хэштег не может состоять из одного символа #';
+      } else if (hashtagElement.length >= hashtag.maxLength) {
+        hashtagErrorMessage = 'Хэштег не более 20 символов';
+      } else if (unique(hashtagList).length < hashtagList.length) {
+        hashtagErrorMessage = 'Не повторяйте хэштеги';
+      }
+
+      if (hashtagErrorMessage) {
+        break;
+      }
+    }
+  }
+  textHashtags.setCustomValidity(hashtagErrorMessage);
+}
+
+function unique(arr) {
+  var obj = {};
+
+  for (var i = 0; i < arr.length; i++) {
+    var str = arr[i];
+    obj[str] = true;
+  }
+
+  return Object.keys(obj);
+}
+
