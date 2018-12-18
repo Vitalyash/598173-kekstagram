@@ -255,7 +255,8 @@ effectLevelPin.addEventListener('mousedown', function (evt) {
   function mouseMove(moveEvt) {
     moveEvt.preventDefault();
     var mouseShift = initialPoint - moveEvt.clientX;
-    var sliderWidth = parseInt(window.getComputedStyle(effectLevelLine).width, 0);
+    initialPoint = moveEvt.clientX;
+    var sliderWidth = parseInt(window.getComputedStyle(effectLevelLine).width, 10);
     var scaleValue = (effectLevelPin.offsetLeft - mouseShift) / sliderWidth * 100;
     effectLevelPin.style.left = (effectLevelPin.offsetLeft - mouseShift) + '%';
 
