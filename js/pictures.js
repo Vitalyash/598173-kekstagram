@@ -42,13 +42,12 @@ var uploadFileInput = document.querySelector('#upload-file');
 var imgUploadOverlay = document.querySelector('.img-upload__overlay');
 var imgUploadCancel = imgUploadOverlay.querySelector('.img-upload__cancel');
 var imgUploadPreview = imgUploadOverlay.querySelector('.img-upload__preview');
-var imgUploadEffects = imgUploadOverlay.querySelector('.img-upload__effects');
 
 var textHashtags = document.querySelector('.text__hashtags');
 
 var effectList = document.querySelector('.effects__list');
 var imgUploadEffectLevel = document.querySelector('.img-upload__effect-level');
-var effectLevelValue = document.querySelector('.effect-level__value')
+var effectLevelValue = document.querySelector('.effect-level__value');
 var effectLevelLine = document.querySelector('.effect-level__line');
 var effectLevelPin = document.querySelector('.effect-level__pin');
 var effectLevelDepth = document.querySelector('.effect-level__depth');
@@ -184,10 +183,6 @@ imgUploadCancel.addEventListener('click', function () {
   closeUploadImg();
 });
 
-imgUploadEffects.addEventListener('change', function () {
-  var checked = imgUploadEffects.querySelector('input:checked');
-});
-
 bigPicture.querySelector('.social__comment-count').classList.add('visually-hidden');
 bigPicture.querySelector('.comments-loader').classList.add('visually-hidden');
 
@@ -235,7 +230,7 @@ function unique(arr) {
 
 var effectCurrent = '';
 
-effectList.addEventListener('change', function(evt) {
+effectList.addEventListener('change', function (evt) {
   var effectButton = evt.target;
 
   var effectName = effectButton.value;
@@ -253,7 +248,7 @@ effectList.addEventListener('change', function(evt) {
 
 imgUploadEffectLevel.style.display = 'none';
 
-effectLevelPin.addEventListener('mousedown', function(evt) {
+effectLevelPin.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
   var initialPoint = evt.clientX;
 
@@ -276,7 +271,7 @@ effectLevelPin.addEventListener('mousedown', function(evt) {
   }
 
   document.addEventListener('mousemove', mouseMove);
-  document.addEventListener('mouseup', mouseDrop);  
+  document.addEventListener('mouseup', mouseDrop);
 });
 
 function getScaleValue(currentValue) {
@@ -296,19 +291,19 @@ function setFilterValue(value) {
   var filterValue;
   switch (effectCurrent) {
     case 'chrome':
-      filterValue = 'grayscale(' + (value) / 100 +')';
+      filterValue = 'grayscale(' + (value) / 100 + ')';
       break;
-    case 'sepia': 
+    case 'sepia':
       filterValue = 'sepia(' + (value) / 100 + ')';
       break;
     case 'marvin':
       filterValue = 'invert(' + (value) + '%)';
       break;
     case 'phobos':
-      filterValue = 'blur(' + (value) * 3 / 100 +'px)';
+      filterValue = 'blur(' + (value) * 3 / 100 + 'px)';
       break;
     case 'heat':
-      filterValue = 'brightness(' + (value) * 3 / 100 +')';
+      filterValue = 'brightness(' + (value) * 3 / 100 + ')';
       break;
     case 'none':
       filterValue = 'none';
