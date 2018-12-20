@@ -28,7 +28,6 @@ bigPictureCancel.addEventListener('click', function () {
   bigPicture.classList.add('hidden');
 });
 
-
 function escapeBigPicturePress(evt) {
   if (evt.keyCode === keycode.Esc) {
     bigPicture.classList.add('hidden');
