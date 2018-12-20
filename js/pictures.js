@@ -50,3 +50,4 @@ function getFragmentPictures(array, template) {
 
 var fragmentPictures = getFragmentPictures(arrayObjectsPicture, pictureTemplate);
 listPictureEl.appendChild(fragmentPictures);
+//
