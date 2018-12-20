@@ -3,7 +3,7 @@
 var set = {
   maxLikes: 200,
   minLikes: 15,
-  countPictures: 25,
+  countPictures: 25,//
   comments: [
     'Всё отлично!',
     'В целом всё неплохо. Но не всё.',
