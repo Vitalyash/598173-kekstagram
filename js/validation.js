@@ -1,14 +1,10 @@
 'use strict';
 
-var hashtag = {
-  maxAmount: 5,
-  maxLength: 20
-};
 
 var textHashtags = document.querySelector('.text__hashtags');
 
 function escapeUploadImgPress(evt) {
-  if ((evt.keyCode === keycode.Esc) && (textHashtags !== document.activeElement)) {
+  if ((evt.keyCode === window.data.keycode.Esc) && (textHashtags !== document.activeElement)) {
     closeUploadImg();
   }
 }
@@ -21,7 +17,7 @@ function validateHashtagsForm() {
   var hashtagErrorMessage = '';
   hashtagErrorMessage = '';
 
-  if (hashtagList.length > hashtag.maxAmount) {
+  if (hashtagList.length > window.data.hashtag.maxAmount) {
     hashtagErrorMessage = 'Не более 5 хэштегов';
   } else {
     for (var i = 0; i < hashtagList.length; i++) {
@@ -30,7 +26,7 @@ function validateHashtagsForm() {
         hashtagErrorMessage = 'Начните хэштег с #';
       } else if (hashtagElement.length === 1) {
         hashtagErrorMessage = 'Хэштег не может состоять из одного символа #';
-      } else if (hashtagElement.length >= hashtag.maxLength) {
+      } else if (hashtagElement.length >= window.data.hashtag.maxLength) {
         hashtagErrorMessage = 'Хэштег не более 20 символов';
       } else if (unique(hashtagList).length < hashtagList.length) {
         hashtagErrorMessage = 'Не повторяйте хэштеги';

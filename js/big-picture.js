@@ -16,7 +16,7 @@ function showBigPicture(bigPictureObject) {
 
   for (var i = 0; i < bigPictureObject.comments.length; i++) {
     commentsList = commentsList + '<li class="social__comment"><img class="social__picture" src="img/avatar-'
-  + getRandomNumber(1, 6) + '.svg" alt="Аватар комментатора фотографии" width="35" height="35"><p class="social__text">'
+  + window.utils.getRandomNumber(1, 6) + '.svg" alt="Аватар комментатора фотографии" width="35" height="35"><p class="social__text">'
   + bigPictureObject.comments[i] + '</p></li>';
   }
 
@@ -29,7 +29,7 @@ bigPictureCancel.addEventListener('click', function () {
 });
 
 function escapeBigPicturePress(evt) {
-  if (evt.keyCode === keycode.Esc) {
+  if (evt.keyCode === window.data.keycode.Esc) {
     bigPicture.classList.add('hidden');
   }
 }
