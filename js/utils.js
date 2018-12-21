@@ -1,5 +1,6 @@
 'use strict';
-(function(){
+
+(function () {
   window.utils = { };
   window.utils.getUrl = function getUrl(i) {
     return ('photos/' + (i + 1) + '.jpg');

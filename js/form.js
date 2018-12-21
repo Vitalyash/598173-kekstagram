@@ -1,26 +1,31 @@
 'use strict';
 
-var uploadFileInput = document.querySelector('#upload-file');
-var imgUploadOverlay = document.querySelector('.img-upload__overlay');
-var imgUploadCancel = imgUploadOverlay.querySelector('.img-upload__cancel');
-var imgUploadPreview = imgUploadOverlay.querySelector('.img-upload__preview');
+(function () {
 
-function openUploadImg() {
-  imgUploadOverlay.classList.remove('hidden');
-  document.addEventListener('keydown', escapeUploadImgPress);
-}
+  window.form = {
+    uploadFileInput: document.querySelector('#upload-file'),
+    imgUploadOverlay: document.querySelector('.img-upload__overlay'),
+    imgUploadCancel: document.querySelector('.img-upload__cancel'),
+    imgUploadPreview: document.querySelector('.img-upload__preview')
+  };
 
-function closeUploadImg() {
-  imgUploadOverlay.classList.add('hidden');
-  document.removeEventListener('keydown', escapeUploadImgPress);
-  uploadFileInput.value = '';
-  imgUploadPreview.className = '';
-}
+  window.form.openUploadImg = function openUploadImg() {
+    window.form.imgUploadOverlay.classList.remove('hidden');
+    document.addEventListener('keydown', window.validation.escapeUploadImgPress);
+  };
 
-uploadFileInput.addEventListener('change', function () {
-  openUploadImg();
-});
+  window.form.closeUploadImg = function closeUploadImg() {
+    window.form.imgUploadOverlay.classList.add('hidden');
+    document.removeEventListener('keydown', window.validation.escapeUploadImgPress);
+    window.form.uploadFileInput.value = '';
+    window.form.imgUploadPreview.className = '';
+  };
 
-imgUploadCancel.addEventListener('click', function () {
-  closeUploadImg();
-});
+  window.form.uploadFileInput.addEventListener('change', function () {
+    window.form.openUploadImg();
+  });
+
+  window.form.imgUploadCancel.addEventListener('click', function () {
+    window.form.closeUploadImg();
+  });
+})();
